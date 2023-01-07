@@ -1,0 +1,106 @@
+.temperature {
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 600px;
+}
+
+.temperature,
+.temperature * {
+    font-family: sans-serif;
+}
+.temperature th{
+    font-size: 1.15em;
+    text-align: left;
+    font-weight: normal;
+    color: white;
+    background: #009578;
+}
+
+.temperature th,
+.temperature td{
+    padding: 0.75em;
+}
+
+.temperature__entries .temperature__row{
+    background: #eeeeeeee;
+}
+
+.temperature__entries .temperature__row:nth-child(odd) {
+    background: #dddddddd;
+}
+
+
+.temperature__date,
+.tracker__temperature,
+
+.tracker__temperature{
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 1em;
+    height: 2.5em;
+    padding: 0.5 em 0;
+    border: none;
+    outline: none;
+    background: none;  
+}
+
+.tracker__temperature {
+    width: 5em;
+    text-align: right;
+}
+
+.temperature__duration {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 1em;
+    height: 2.5em;
+    padding: 0.5 em 0;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.temperature__duration {
+    width: 5em;
+    text-align: right;
+}
+
+
+.temperature__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    color: red;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+    cursor: pointer;
+}
+
+.temperature__button:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+.temperature__row--add {
+    border-top: 3px solid #333333;
+    border-bottom: 3px solid #333333;
+    background: #ffffff
+}
+
+.temperature__row--add td {
+text-align: right;
+}
+
+.temperature__add {
+    display: inline-block;
+    cursor: pointer;
+    color: green;
+    cursor: pointer;
+}
+
+.temperature__add:hover{
+    background: rgba(0, 0, 0, 0.1);
+}
