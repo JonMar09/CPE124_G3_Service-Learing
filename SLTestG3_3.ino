@@ -1,3 +1,6 @@
+//Description: 3rd Test of the code where the main components are being tested 
+//and displays the data to thingspeak channel.
+
 #include <ESP8266WiFi.h>
 #include <Servo.h>
 #include "DHT.h"
@@ -66,6 +69,6 @@ void loop() {
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
 
-  delay(5000);
+  delay(5000);// Wait 5 seconds to update the channel again
  }
-} // Wait 20 seconds to update the channel again
+} 
