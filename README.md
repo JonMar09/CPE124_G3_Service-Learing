@@ -5,7 +5,6 @@ Documentation of Service Learning Project
 Members: 
 
 Cruz, Marc Samuel C.
-
 Dominguez, Leopoldo Malabanan R.
 
 Macadangdang, Edwin Dominic L.
