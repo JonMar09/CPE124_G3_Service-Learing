@@ -1,4 +1,4 @@
-//Description: rth test of the code, using additional features for the project, like the
+//Description: fourth test of the code, using additional features for the project, like the
 //buzzer and LED to notify user that the temperature reached 30.50C.
 
 #include <ESP8266WiFi.h>
@@ -26,8 +26,8 @@ Servo servo;
 unsigned long myChannelNumber = SECRET_CH_ID;
 const char * myWriteAPIKey = SECRET_WRITE_APIKEY;
 
-const int servoPin = D0;
-const int buzzerpin = D2;
+const int servoPin = D0; //assign servo pin to D0
+const int buzzerpin = D2;// assign buzzer pin to D2
 
 //Set DHT11
 #define DHTPIN D1
@@ -52,7 +52,7 @@ void setup() {
 
   // Connect or reconnect to WiFi
   if(WiFi.status() != WL_CONNECTED){
-    Serial.print("\nConnecting to SSID: ");
+    Serial.print("\nConnecting to ");
     Serial.println(SECRET_SSID);
     while(WiFi.status() != WL_CONNECTED){
       WiFi.begin(ssid, pass);  // Connect to WPA/WPA2 network. Change this line if using open or WEP network
@@ -70,15 +70,21 @@ void loop() {
   float h = dht.readHumidity();
 
 //Set RGB
-  if (t > 31){
+  if (t > 31){ //set Red LED
     digitalWrite(RED_PIN, HIGH);
     digitalWrite(GREEN_PIN, LOW);
     digitalWrite(BLUE_PIN, LOW);
-  } else if (t <= 31) {
+    // Turn the buzzer on
+    digitalWrite(buzzerpin, HIGH); 
+    Serial.println("Temperature exceeded 31C, Buzzer on");
+    delay(3000); //5 seconds delay
+    digitalWrite(buzzerpin, LOW); // Turn the buzzer off
+    Serial.println("Buzzer off after 3 seconds");
+  } else if (t <= 31) { //set Green LED
     digitalWrite(RED_PIN, LOW);
     digitalWrite(GREEN_PIN, HIGH);
     digitalWrite(BLUE_PIN, LOW);
-  } else {
+  } else { //set Blue LED
     digitalWrite(RED_PIN, LOW);
     digitalWrite(GREEN_PIN, LOW);
     digitalWrite(BLUE_PIN, HIGH);    
@@ -99,18 +105,6 @@ void loop() {
     delay(15);                     // waits 15ms for the servo to reach the position
   }
 
-// Set Buzzer
-  if (t > 31) {
-    digitalWrite(buzzerpin, HIGH); // Turn the buzzer on
-    Serial.println("Temperature exceeded 31C, Buzzer on");
-    delay(5000); //5 seconds delay
-    digitalWrite(buzzerpin, LOW); // Turn the buzzer off
-    Serial.println("Buzzer off after 5 seconds");
-  }
-
-
-
-
 // Output for channel update
   if(x == 200){
     Serial.println("Channel update successful.");
@@ -120,6 +114,6 @@ void loop() {
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
 
-  delay(5000);// Wait 5 seconds to update the channel again
+  delay(2000);// Wait 5 seconds to update the channel again
  }
 } 
