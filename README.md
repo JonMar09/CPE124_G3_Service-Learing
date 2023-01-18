@@ -4,9 +4,13 @@ Documentation of Service Learning Project
 
 Members: 
 Cruz, Marc Samuel C. 
+
 Dominguez, Leopoldo Malabanan R. 
+
 Macadangdang, Edwin Dominic L. 
+
 Marcelino, Jon Patrick D. 
+
 Ong, Lawrence A. 
 
 Project Title: Temperature Based Automatic Watering of Crops 
