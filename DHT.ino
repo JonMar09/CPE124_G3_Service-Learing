@@ -47,8 +47,8 @@ void loop(){
     // in steps of 1 degree
     myservo.write(pos);              
     delay(30);                    
-  
+
   }
-  //Fastest should be once every two seconds.
+  ///Fastest should be once every two seconds.
  
   }// end loop(
