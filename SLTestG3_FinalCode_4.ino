@@ -34,6 +34,7 @@ const char index_html[] PROGMEM = R"rawliteral(
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  //css styling format
   <style>
     html {
      font-family: Arial;
@@ -51,6 +52,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     }
   </style>
 </head>
+//Temperature and Humidity display
 <body>
   <h2>ESP8266 DHT Server</h2>
   <p>
