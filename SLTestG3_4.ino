@@ -2,12 +2,12 @@
 //buzzer and LED to notify user that the temperature reached 30.50C.
 
 #include <ESP8266WiFi.h>
-#include <Servo.h>
+#include <Servo.h> // ;ibrary for servo
 #include "DHT.h"
 #include "ThingSpeak.h" // always include thingspeak header file after other header files and custom macros
 
-#define SECRET_SSID "virus"
-#define SECRET_PASS "AntoMar304"
+#define SECRET_SSID "virus" //input SSID
+#define SECRET_PASS "AntoMar304" // input SSID password
 
 #define SECRET_CH_ID 2009202
 #define SECRET_WRITE_APIKEY "M7A8RZXUZJZLDQMQ"
