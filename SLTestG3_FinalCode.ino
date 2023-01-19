@@ -9,7 +9,7 @@ const char* password = "AntoMar304";
 
 WiFiServer server(80);
 DHT dht(DHTPIN, DHTTYPE);
-
+//Initial set-up of the Arduino
 void setup() {
   Serial.begin(921600);
   dht.begin(); //initialize the DHT sensor
@@ -27,7 +27,7 @@ void setup() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 }
-
+//Checks the client server
 void loop() {
   WiFiClient client = server.available();
   if (!client) {
@@ -36,10 +36,10 @@ void loop() {
   // Read the temperature and humidity from the sensor
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-
+  //HTML Output of the web server
   String html = "<html><body>";
-  html += "<h1>Temperature: " + String(t) + "C</h1>";
-  html += "<h1>Humidity: " + String(h) + "%</h1>";
+  html += "<h1>Temperature: " + String(t) + "C</h1>"; //Displays "Temperature:" in web server
+  html += "<h1>Humidity: " + String(h) + "%</h1>"; //Displays "Humidity:" in web server
   html += "</body></html>";
 
   client.println("HTTP/1.1 200 OK");
