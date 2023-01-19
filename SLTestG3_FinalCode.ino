@@ -1,46 +1,42 @@
 #include <DHT.h>
 #include <ESP8266WiFi.h>
-#define DHTPIN D1
+#define DHTPIN D1  
 #define DHTTYPE DHT11
 
-//User SSID and PASSWORD
-const char* ssid = "*****";
-const char* password = "*****";
+//Define the name and password of the WiFi network.
+const char* ssid = "virus"; 
+const char* password = "AntoMar304"; 
 
 WiFiServer server(80);
 DHT dht(DHTPIN, DHTTYPE);
 
-//Function for setup in Wifi
 void setup() {
   Serial.begin(921600);
-  dht.begin();
+  dht.begin(); //initialize the DHT sensor
 
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid, password); // This part will connect the device to the internet using the wifi module in the NODEMCU
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
 
-  server.begin();
+  server.begin(); // start the server
   Serial.println("Server started");
-
+  // Print the IP address of the device
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 }
 
-//Function for WiFi Server
 void loop() {
   WiFiClient client = server.available();
   if (!client) {
     return;
   }
-
-  //Display value of the Humidity and Temperature
+  // Read the temperature and humidity from the sensor
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  
-  //Headers
+
   String html = "<html><body>";
   html += "<h1>Temperature: " + String(t) + "C</h1>";
   html += "<h1>Humidity: " + String(h) + "%</h1>";
