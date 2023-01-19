@@ -156,7 +156,9 @@ void loop(){
     else {
       h = newH;
       Serial.println(h);
-      if(t > 31){ // If temperature reached 30.50C servo will turn//
+      
+     //here 
+  if(t > 31){ // If temperature reached 30.50C servo will turn//
   for (int i = 0; i <= 180; i++) {  // goes from 0 degrees to 180 degrees//
     servo.write(i);              // tell servo to go to position in variable 'i'//
     delay(15);                     // waits 15ms for the servo to reach the position//
