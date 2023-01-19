@@ -1,3 +1,4 @@
+//Libraries
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Hash.h>
@@ -6,25 +7,28 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 
+//Network Credentials
 const char* ssid = "virus";
 const char* password = "AntoMar304";
 
+//DHT Sensor pins
 #define DHTPIN D1
 #define DHTTYPE DHT11     
 
 DHT dht(DHTPIN, DHTTYPE);
 
-
+//Temperature and Humidity Sensor Inital State
 float t = 0.0;
 float h = 0.0;
 
+// AsyncWebServer object Port 80
 AsyncWebServer server(80);
 
-unsigned long previousMillis = 0;
+unsigned long previousMillis = 0; //Store time of DHT 
 
 
-const long interval = 10000;  
-
+const long interval = 10000;  // DHT Reading update every 10 seconds
+//HTML Code
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html>
 <head>
@@ -86,7 +90,7 @@ setInterval(function ( ) {
 }, 10000 ) ;
 </script>
 </html>)rawliteral";
-
+//Replaces placeholder with DHT values
 String processor(const String& var){
 
   if(var == "TEMPERATURE"){
