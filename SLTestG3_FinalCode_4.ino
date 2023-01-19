@@ -6,6 +6,7 @@
 #include <ESPAsyncWebServer.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
+#include <Servo.h>
 
 //Network Credentials
 const char* ssid = "virus";
@@ -14,8 +15,12 @@ const char* password = "AntoMar304";
 //DHT Sensor pins
 #define DHTPIN D1
 #define DHTTYPE DHT11     
-
 DHT dht(DHTPIN, DHTTYPE);
+
+//RGB pin setup
+#define RED_PIN D5 //
+#define GREEN_PIN D6 //
+#define BLUE_PIN D7 //
 
 //Temperature and Humidity Sensor Inital State
 float t = 0.0;
@@ -23,9 +28,11 @@ float h = 0.0;
 
 // AsyncWebServer object Port 80
 AsyncWebServer server(80);
+Servo servo;
+const int servoPin = D0;  //assign servo pin to D0
+const int buzzerpin = D2; // assign buzzer pin to D2
 
 unsigned long previousMillis = 0; //Store time of DHT 
-
 
 const long interval = 10000;  // DHT Reading update every 10 seconds
 //HTML Code
@@ -108,13 +115,23 @@ void setup(){
   Serial.begin(921600);
   dht.begin();
   WiFi.begin(ssid, password);
+  
+  servo.attach(servoPin); // Servo Output
+  pinMode(buzzerpin, OUTPUT); Buzzer Output
+  
+  //RGB Output
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(BLUE_PIN, OUTPUT);
+
+
   Serial.println("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println(".");
   }
 
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP()); // 192.168.254.164 (ESP8266 IP ADDRESS)
   
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/html", index_html, processor);
@@ -157,53 +174,35 @@ void loop(){
       h = newH;
       Serial.println(h);
       
-         if (t > 31){ //set Red LED //
-    digitalWrite(RED_PIN, HIGH);//
-    digitalWrite(GREEN_PIN, LOW);//
-    digitalWrite(BLUE_PIN, LOW);//
-    // Turn the buzzer on//
-    digitalWrite(buzzerpin, HIGH); //
-    Serial.println("Temperature exceeded 31C, Buzzer on");//
+    if (t > 31){ //set Red LED 
+    digitalWrite(RED_PIN, HIGH);
+    digitalWrite(GREEN_PIN, LOW);
+    digitalWrite(BLUE_PIN, LOW);
+    // Turn the buzzer on
+    digitalWrite(buzzerpin, HIGH); 
+    Serial.println("Temperature exceeded 31C, Buzzer on");
     delay(3000); //5 seconds delay
-    digitalWrite(buzzerpin, LOW); // Turn the buzzer off//
-    Serial.println("Buzzer off after 3 seconds");//
-  } else if (t <= 31) { //set Green LED//
-    digitalWrite(RED_PIN, LOW);//
-    digitalWrite(GREEN_PIN, HIGH);//
-    digitalWrite(BLUE_PIN, LOW);//
-  } else { //set Blue LED//
-    digitalWrite(RED_PIN, LOW);//
-    digitalWrite(GREEN_PIN, LOW);//
-    digitalWrite(BLUE_PIN, HIGH);    //
+    digitalWrite(buzzerpin, LOW); // Turn the buzzer off
+    Serial.println("Buzzer off after 3 seconds");
+  } else if (t <= 31) { //set Green LED
+    digitalWrite(RED_PIN, LOW);
+    digitalWrite(GREEN_PIN, HIGH);
+    digitalWrite(BLUE_PIN, LOW);
+  } else { //set Blue LED
+    digitalWrite(RED_PIN, LOW);
+    digitalWrite(GREEN_PIN, LOW);
+    digitalWrite(BLUE_PIN, HIGH);
   }
-  if(t > 31){ // If temperature reached 30.50C servo will turn//
-  for (int i = 0; i <= 180; i++) {  // goes from 0 degrees to 180 degrees//
-    servo.write(i);              // tell servo to go to position in variable 'i'//
-    delay(15);                     // waits 15ms for the servo to reach the position//
+  
+  if (t > 31){ // If temperature reached 30.50C servo will turn
+  for (int i = 0; i <= 180; i++) {  // goes from 0 degrees to 180 degrees
+    servo.write(i);              // tell servo to go to position in variable 'i'
+    delay(15);                     // waits 15ms for the servo to reach the position
   }
   for (int i = 180; i >= 0; i--) {  // goes from 180 degrees to 0 degrees//
-    servo.write(i);              // tell servo to go to position in variable 'i'//
-    delay(15);                     // waits 15ms for the servo to reach the position//
+    servo.write(i);              // tell servo to go to position in variable 'i'
+    delay(15);                     // waits 15ms for the servo to reach the position
   }
-    }
+   }
   }
-}
-    if (t > 31){ //set Red LED //
-    digitalWrite(RED_PIN, HIGH);//
-    digitalWrite(GREEN_PIN, LOW);//
-    digitalWrite(BLUE_PIN, LOW);//
-    // Turn the buzzer on//
-    digitalWrite(buzzerpin, HIGH); //
-    Serial.println("Temperature exceeded 31C, Buzzer on");//
-    delay(3000); //5 seconds delay
-    digitalWrite(buzzerpin, LOW); // Turn the buzzer off//
-    Serial.println("Buzzer off after 3 seconds");//
-  } else if (t <= 31) { //set Green LED//
-    digitalWrite(RED_PIN, LOW);//
-    digitalWrite(GREEN_PIN, HIGH);//
-    digitalWrite(BLUE_PIN, LOW);//
-  } else { //set Blue LED//
-    digitalWrite(RED_PIN, LOW);//
-    digitalWrite(GREEN_PIN, LOW);//
-    digitalWrite(BLUE_PIN, HIGH);    //
-  }
+ }
