@@ -3,12 +3,14 @@
 #define DHTPIN D1
 #define DHTTYPE DHT11
 
-const char* ssid = "virus";
-const char* password = "AntoMar304";
+//User SSID and PASSWORD
+const char* ssid = "*****";
+const char* password = "*****";
 
 WiFiServer server(80);
 DHT dht(DHTPIN, DHTTYPE);
 
+//Function for setup in Wifi
 void setup() {
   Serial.begin(921600);
   dht.begin();
@@ -27,15 +29,18 @@ void setup() {
   Serial.println(WiFi.localIP());
 }
 
+//Function for WiFi Server
 void loop() {
   WiFiClient client = server.available();
   if (!client) {
     return;
   }
 
+  //Display value of the Humidity and Temperature
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-
+  
+  //Headers
   String html = "<html><body>";
   html += "<h1>Temperature: " + String(t) + "C</h1>";
   html += "<h1>Humidity: " + String(h) + "%</h1>";
