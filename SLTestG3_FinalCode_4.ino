@@ -168,3 +168,22 @@ void loop(){
     }
   }
 }
+    if (t > 31){ //set Red LED //
+    digitalWrite(RED_PIN, HIGH);//
+    digitalWrite(GREEN_PIN, LOW);//
+    digitalWrite(BLUE_PIN, LOW);//
+    // Turn the buzzer on//
+    digitalWrite(buzzerpin, HIGH); //
+    Serial.println("Temperature exceeded 31C, Buzzer on");//
+    delay(3000); //5 seconds delay
+    digitalWrite(buzzerpin, LOW); // Turn the buzzer off//
+    Serial.println("Buzzer off after 3 seconds");//
+  } else if (t <= 31) { //set Green LED//
+    digitalWrite(RED_PIN, LOW);//
+    digitalWrite(GREEN_PIN, HIGH);//
+    digitalWrite(BLUE_PIN, LOW);//
+  } else { //set Blue LED//
+    digitalWrite(RED_PIN, LOW);//
+    digitalWrite(GREEN_PIN, LOW);//
+    digitalWrite(BLUE_PIN, HIGH);    //
+  }
